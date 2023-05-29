@@ -28,5 +28,13 @@ func main() {
 	}
 
 	c := cleaner.NewPushgatewayCleaner(*address, *dryrun, *ttl)
-	c.Run()
+
+	for {
+		err := c.Run()
+		if err != nil {
+			logrus.Warn(err)
+		}
+
+		time.Sleep(time.Second)
+	}
 }
